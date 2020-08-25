@@ -1,0 +1,70 @@
+{
+  "targets": {
+    "client_mingw32": {
+      "folder": "src/client/",
+      "output": "bin/openpmd_client.exe",
+      "working_dir": "bin/",
+      "compiler_flags": [
+        "-Wall",
+        "-std=c99",
+        "-D_SDL_main_h",
+        "-DSDL_main_h_",
+        "-DHAVE_STRUCT_TIMESPEC"
+      ],
+      "linker_flags": [
+        "-lmingw32",
+        "-lSDL2main",
+        "-lSDL2",
+        "-mwindows"
+      ],
+      "include_dirs": [
+      ],
+      "link_dirs": [
+      ],
+      "commands": {
+        "compiler": "mingw32-gcc",
+        "linker": "mingw32-gcc"
+      }
+    },
+    "client": {
+      "folder": "src/client/",
+      "output": "bin/openpmd_client",
+      "working_dir": "bin/",
+      "compiler_flags": [
+        "-Wall",
+        "-std=c99"
+      ],
+      "linker_flags": [
+        "-lSDL2"
+      ],
+      "include_dirs": [
+      ],
+      "link_dirs": [
+      ],
+      "commands": {
+        "compiler": "gcc",
+        "linker": "gcc"
+      }
+    },
+    "server": {
+      "folder": "src/server/",
+      "output": "bin/server/openpmd_server.exe",
+      "working_dir": "bin/server/",
+      "compiler_flags": [
+        "-Wall",
+        "-std=c99"
+      ],
+      "linker_flags": [
+        "-lmingw32"
+      ],
+      "include_dirs": [
+      ],
+      "link_dirs": [
+      ],
+      "commands": {
+        "compiler": "gcc",
+        "linker": "gcc"
+      }
+    }
+  }
+}
