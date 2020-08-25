@@ -30,6 +30,15 @@ int main(int argc, char const *argv[]) {
     exit(1);
   }
 
+  // set icon
+  SDL_Surface* icon_surface = SDL_LoadBMP("icon.bmp");
+  if (icon_surface == NULL) {
+    fprintf(stderr,"Error creating loading icon! %s",SDL_GetError());
+    exit(1);
+  }
+  SDL_SetWindowIcon(window,icon_surface);
+  SDL_FreeSurface(icon_surface);
+
   printf("Creating dungeon...\n");
   dungeon* test_dungeon = dungeon_create_empty();
   for (short i=1; i<6; i++) {
@@ -42,6 +51,7 @@ int main(int argc, char const *argv[]) {
       dungeon_set_tile_type(test_dungeon,i,j,TILE_WATER);
     }
   }
+
   // render dungeon
   SDL_Texture* dungeon_rendered = dungeon_render_to_texture(test_dungeon,renderer,"dungeon1");
   bool run = true;

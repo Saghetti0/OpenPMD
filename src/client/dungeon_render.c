@@ -21,7 +21,7 @@ SDL_Texture* dungeon_render_to_texture(dungeon* render_dungeon,SDL_Renderer* ren
   snprintf(dungeon_dma_filename,sizeof(dungeon_dma_filename),"dungeon_gfx/%s.dma",tileset_name);
 
   // load tileset into vram
-  printf("Loading tileset into VRAM\n");
+  //printf("Loading tileset into VRAM\n");
   SDL_Surface* dungeon_tileset_surface = SDL_LoadBMP(dungeon_tileset_filename);
   if (dungeon_tileset_surface == NULL) {
     fprintf(stderr,"Error loading tileset %s! %s",dungeon_tileset_filename,SDL_GetError());
@@ -31,7 +31,7 @@ SDL_Texture* dungeon_render_to_texture(dungeon* render_dungeon,SDL_Renderer* ren
   SDL_FreeSurface(dungeon_tileset_surface);
 
   // read DMA data
-  printf("Reading DMA data\n");
+  //printf("Reading DMA data\n");
   FILE *fptr = fopen(dungeon_dma_filename,"rb");
   if (fptr == NULL) {
     fprintf(stderr,"Error loading DMA!");
@@ -54,7 +54,7 @@ SDL_Texture* dungeon_render_to_texture(dungeon* render_dungeon,SDL_Renderer* ren
   for (short tile_y=0; tile_y<DUNGEON_HEIGHT; tile_y++) {
     for (short tile_x=0; tile_x<DUNGEON_WIDTH; tile_x++) {
       tile_type current_tile = dungeon_get_tile_type(render_dungeon,tile_x,tile_y);
-      printf("Processing tile %d, %d with type %d:\n",tile_x,tile_y,current_tile);
+      //printf("Processing tile %d, %d with type %d:\n",tile_x,tile_y,current_tile);
       /*
        * In order to render the dungeon correctly, we need to get the 8 surrounding tiles for this tile
        * and then compare if each tile is the same type as the tile we're currently processing

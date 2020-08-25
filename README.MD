@@ -38,6 +38,7 @@ python build.py -h
 ```
 
 ### Running
-OpenPMD expects the following files and folders to be available in the working directory.
+The OpenPMD client expects the following files and folders to be available in the working directory.
 * dungeon_gfx/ - contains the graphics and data used to render dungeons. I will upload these later.
 * SDL2.dll (on windows)
+* icon.bmp - will also be uploaded later (in the form of a release)
