@@ -24,7 +24,7 @@ SDL_Texture* dungeon_render_to_texture(dungeon* render_dungeon,SDL_Renderer* ren
   //printf("Loading tileset into VRAM\n");
   SDL_Surface* dungeon_tileset_surface = SDL_LoadBMP(dungeon_tileset_filename);
   if (dungeon_tileset_surface == NULL) {
-    fprintf(stderr,"Error loading tileset %s! %s",dungeon_tileset_filename,SDL_GetError());
+    fprintf(stderr,"Error loading tileset %s! %s\n",dungeon_tileset_filename,SDL_GetError());
     return NULL;
   }
   SDL_Texture* dungeon_tileset = SDL_CreateTextureFromSurface(renderer,dungeon_tileset_surface);
@@ -34,14 +34,14 @@ SDL_Texture* dungeon_render_to_texture(dungeon* render_dungeon,SDL_Renderer* ren
   //printf("Reading DMA data\n");
   FILE *fptr = fopen(dungeon_dma_filename,"rb");
   if (fptr == NULL) {
-    fprintf(stderr,"Error loading DMA!");
+    fprintf(stderr,"Error loading DMA!\n");
     return NULL;
   }
   fread(&dma,1,2352,fptr);
-  for (int i=0; i<2352; i++) {
+  /*for (int i=0; i<2352; i++) {
     printf("%x",dma[i]);
   }
-  printf("\n");
+  printf("\n");*/
   fclose(fptr);
 
   // prepare renderer
@@ -113,7 +113,7 @@ SDL_Texture* dungeon_render_to_texture(dungeon* render_dungeon,SDL_Renderer* ren
       dest_rect.w = TILE_SIZE;
       dest_rect.h = TILE_SIZE;
       if (dma_index >= sizeof(dma)) {
-        fprintf(stderr,"Invalid tilesheet access! Index %d outside of DMA table size %d",dma_index,(int)sizeof(dma));
+        fprintf(stderr,"Invalid tilesheet access! Index %d outside of DMA table size %d\n",dma_index,(int)sizeof(dma));
       } else {
         char tilesheet_x = dma[dma_index]%16;
         char tilesheet_y = dma[dma_index]/16;
