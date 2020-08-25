@@ -1,6 +1,8 @@
 # OpenPMD
 An open-source re-creation of Pokemon Mystery Dungeon: Explorers of Sky. Also includes multiplayer support.
 
+**Caution: OpenPMD is still in very early alpha. Don't expect anything to work**
+
 ## Building
 For now, this project uses a custom build script written in Python to compile the code. Probably going to switch over to premake sometime in the future.
 
