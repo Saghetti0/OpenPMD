@@ -1,3 +1,7 @@
+/* The OpenPMD project
+ * main.c: the main file for the OpenPMD client
+ */
+
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
@@ -24,7 +28,7 @@ int main(int argc, char const *argv[]) {
     fprintf(stderr,"Error creating window! %s",SDL_GetError());
     exit(1);
   }
-  renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED || SDL_RENDERER_PRESENTVSYNC || SDL_RENDERER_TARGETTEXTURE);
+  renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_TARGETTEXTURE);
   if (renderer == NULL) {
     fprintf(stderr,"Error creating renderer! %s",SDL_GetError());
     exit(1);
