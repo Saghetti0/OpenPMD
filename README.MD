@@ -44,3 +44,6 @@ The OpenPMD client expects the following files and folders to be available in th
 * dungeon_gfx/ - contains the graphics and data used to render dungeons. I will upload these later.
 * SDL2.dll (on windows)
 * icon.bmp - will also be uploaded later (in the form of a release)
+
+The server (located in bin/server/) requires these files to be present
+* pthreadGC2.dll from pthreads-win32 (on windows only)

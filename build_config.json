@@ -46,6 +46,30 @@
         "linker": "gcc"
       }
     },
+    "server_mingw32": {
+      "folder": "src/server/",
+      "output": "bin/server/openpmd_server.exe",
+      "working_dir": "bin/server/",
+      "compiler_flags": [
+        "-Wall",
+        "-std=c99",
+        "-DHAVE_STRUCT_TIMESPEC"
+      ],
+      "linker_flags": [
+        "-lmingw32",
+        "-llua",
+        "-lws2_32",
+        "-lpthreadGC2"
+      ],
+      "include_dirs": [
+      ],
+      "link_dirs": [
+      ],
+      "commands": {
+        "compiler": "mingw32-gcc",
+        "linker": "mingw32-gcc"
+      }
+    },
     "server": {
       "folder": "src/server/",
       "output": "bin/server/openpmd_server.exe",
@@ -55,7 +79,8 @@
         "-std=c99"
       ],
       "linker_flags": [
-        "-lmingw32"
+        "-llua",
+        "-lpthread"
       ],
       "include_dirs": [
       ],
