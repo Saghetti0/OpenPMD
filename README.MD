@@ -19,19 +19,24 @@ For now, this project uses a custom build script written in Python to compile th
 ### Compiling
 Compiling is (or at least should) be as easy as running this command
 
-Compiling the client using mingw32
-```bash
-python build.py client_mingw32
-```
-
 Compiling the client using GCC on Linux (note: this should work, but hasn't been tested yet. Feel free to open an issue if it doesn't work for you.)
 ```bash
 python build.py client
 ```
 
-Compiling the server. As of now, the server is nothing more than a hello world application, as it hasn't been implemented yet.
+Compiling the client using mingw32
+```bash
+python build.py client_mingw32
+```
+
+Compiling the server. The protocol is yet to be fully implemented.
 ```bash
 python build.py server
+```
+
+Compiling the server using mingw32.
+```bash
+python build.py server_mingw32
 ```
 
 View help for the build script
@@ -47,3 +52,7 @@ The OpenPMD client expects the following files and folders to be available in th
 
 The server (located in bin/server/) requires these files to be present
 * pthreadGC2.dll from pthreads-win32 (on windows only)
+
+## Screenshots
+
+![OpenPMD Client](https://cdn.discordapp.com/attachments/747877176178638858/747894100027768847/unknown.png)
