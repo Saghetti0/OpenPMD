@@ -6,7 +6,7 @@
 #include <pthread.h>
 #include <errno.h>
 #include <stdio.h>
-#include "net_conn_info.h"
+#include "net_main.h"
 #include "net_conn_handler.h"
 
 #ifdef __unix__
@@ -26,10 +26,8 @@
 #define MAKEWORD(a,b)   ((WORD)(((BYTE)(a))|(((WORD)((BYTE)(b)))<<8)))
 #endif
 
-// 256 should be more than good enough for now, might increase later though
-#define MAX_CONNECTIONS 256
+net_connection_info* net_active_connections[MAX_CONNECTIONS];
 
-static net_connection_info* net_active_connections[MAX_CONNECTIONS];
 // needed more efficiently find a free slot
 // TODO: implement
 //static int net_next_slot_id = 0;
@@ -93,7 +91,9 @@ void net_serve() {
 
     // find free slot in net_sockets
     short found_slot = 0;
-    for (int checking_slot_id = 0; checking_slot_id<MAX_CONNECTIONS-1; checking_slot_id++) {
+    int checking_slot_id = 0;
+    for (; checking_slot_id<MAX_CONNECTIONS-1; checking_slot_id++) {
+      //printf("net_active_connections[%d] = %x\n",checking_slot_id,net_active_connections[checking_slot_id]);
       if (net_active_connections[checking_slot_id] == NULL) {
         found_slot = 1;
         break;
@@ -112,6 +112,11 @@ void net_serve() {
     conn_info->socket_fp = client_socket_fp;
     conn_info->connection_id = net_next_conn_id;
     conn_info->client_addr = client_addr;
+    conn_info->connection_slot_id = found_slot;
+
+    net_active_connections[checking_slot_id] = conn_info;
+    printf("Assigning connection slot %d\n",checking_slot_id);
+
     net_next_conn_id++;
 
     pthread_t thread_id;
@@ -122,6 +127,7 @@ void net_serve() {
 
     if (status) {
       perror("Unable to create thread");
+      close(client_socket_fp);
       continue;
     }
   }

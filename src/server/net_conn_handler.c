@@ -22,6 +22,7 @@
 
 #include "net_conn_handler.h"
 #include "net_conn_info.h"
+#include "net_main.h"
 
 void* net_conn_main(void* current_conn_info_voidptr) {
   net_connection_info* current_conn_info = (net_connection_info*) current_conn_info_voidptr;
@@ -68,5 +69,9 @@ void* net_conn_main(void* current_conn_info_voidptr) {
   //printf("Closing connection %s\n",conn_identifier);
   close(socket_fp);
   free(current_conn_info_voidptr);
+  // remove entry in table
+  // this is probably a really stupid way of doing things
+  // actually, not probably, this *is* a really stupid way of doing things
+  net_active_connections[current_conn_info->connection_slot_id] = NULL;
   return NULL;
 }

@@ -2,6 +2,8 @@
  * net_conn_info.h: file containing connection the net_connection_info struct
  */
 
+#pragma once
+
 #include <pthread.h>
 #ifdef __unix__
 #include <netdb.h>
@@ -21,4 +23,5 @@ typedef struct net_connection_info {
   pthread_t connection_thread;
   int connection_id;
   struct sockaddr_in client_addr;
+  int connection_slot_id;
 } net_connection_info;
