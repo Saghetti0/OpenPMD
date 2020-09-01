@@ -8,10 +8,7 @@
 #include <ctype.h>
 
 #ifdef __unix__
-#include <netdb.h>
 #include <netinet/in.h>
-#include <stdlib.h>
-#include <string.h>
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <arpa/inet.h>
@@ -40,9 +37,9 @@ void* net_conn_main(void* current_conn_info_voidptr) {
   sprintf(conn_identifier,"%s$%d",ip_address_str,connection_id);
   printf("Connection established with %s\n",conn_identifier);
   while (1) {
-    unsigned char buffer[256];
+    char buffer[256];
     memset(buffer,0,256);
-    int status = recv(socket_fp,(char*)&buffer,255,0);
+    int status = recv(socket_fp,buffer,255,0);
     if (status < 0) {
        printf("Connection lost with %s due to a network error\n",conn_identifier);
        perror(conn_identifier);
