@@ -9,6 +9,8 @@ if not os.path.exists("obj"):
 
 if not os.path.exists("bin"):
     os.makedirs("bin/")
+if not os.path.exists("bin/server"):
+    os.makedirs("bin/server/")
 
 with open("build_config.json","r") as fh:
     build_config = json.loads(fh.read())

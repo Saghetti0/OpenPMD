@@ -72,7 +72,7 @@
     },
     "server": {
       "folder": "src/server/",
-      "output": "bin/server/openpmd_server.exe",
+      "output": "bin/server/openpmd_server",
       "working_dir": "bin/server/",
       "compiler_flags": [
         "-Wall",
