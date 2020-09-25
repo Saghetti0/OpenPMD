@@ -8,12 +8,11 @@
 #include <stdio.h>
 #include "net_main.h"
 #include "net_conn_handler.h"
+#include <string.h>
+#include <stdlib.h>
 
 #ifdef __unix__
-#include <netdb.h>
 #include <netinet/in.h>
-#include <stdlib.h>
-#include <string.h>
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <arpa/inet.h>
@@ -113,6 +112,7 @@ void net_serve() {
     conn_info->connection_id = net_next_conn_id;
     conn_info->client_addr = client_addr;
     conn_info->connection_slot_id = found_slot;
+    pthread_mutex_init(&(conn_info->socket_send_mutex),NULL);
 
     net_active_connections[checking_slot_id] = conn_info;
     printf("Assigning connection slot %d\n",checking_slot_id);

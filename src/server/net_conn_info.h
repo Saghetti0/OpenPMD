@@ -24,4 +24,5 @@ typedef struct net_connection_info {
   int connection_id;
   struct sockaddr_in client_addr;
   int connection_slot_id;
+  pthread_mutex_t socket_send_mutex;
 } net_connection_info;

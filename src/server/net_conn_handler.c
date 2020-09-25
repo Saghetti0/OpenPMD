@@ -67,8 +67,8 @@ void* net_conn_main(void* current_conn_info_voidptr) {
   close(socket_fp);
   free(current_conn_info_voidptr);
   // remove entry in table
-  // this is probably a really stupid way of doing things
-  // actually, not probably, this *is* a really stupid way of doing things
   net_active_connections[current_conn_info->connection_slot_id] = NULL;
+  // destroy socket_send_mutex
+  pthread_mutex_destroy(&(current_conn_info->socket_send_mutex));
   return NULL;
 }
