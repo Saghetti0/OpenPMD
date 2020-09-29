@@ -149,7 +149,7 @@ uint16_t net_read_binary(int socket_fp, char** input_buffer) {
    return data_size;
 }
 
-uint32_t net_read_longbinary(int socket_fp, char** buffer) {
+uint32_t net_read_longbinary(int socket_fp, char** input_buffer) {
   // see note from net_read_binary
 
   uint32_t data_size = net_read_uint32(socket_fp);

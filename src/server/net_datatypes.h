@@ -20,5 +20,5 @@ float net_read_float(int socket_fp);
 double net_read_double(int socket_fp);
 
 // string and binary are both read using net_read_binary and net_read_longbinary
-uint16_t net_read_binary(int socket_fp, char** buffer);
-uint32_t net_read_longbinary(int socket_fp, char** buffer);
+uint16_t net_read_binary(int socket_fp, char** input_buffer);
+uint32_t net_read_longbinary(int socket_fp, char** input_buffer);
