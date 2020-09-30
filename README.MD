@@ -11,10 +11,12 @@ For now, this project uses a custom build script written in Python to compile th
   * Python 3.5 or newer
   * mingw32-gcc
   * SDL2 installed and visible mingw32-gcc
+  * Lua 5.3 library (server only)
 * For Linux
   * Python 3.5 or newer
   * GCC
   * SDL2-devel
+  * Lua 5.3 library (server only)
 
 ### Compiling
 Compiling is (or at least should) be as easy as running this command
