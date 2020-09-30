@@ -11,6 +11,31 @@
 #include <winsock2.h>
 #endif
 
+// need net_write work on a big endian processor? uncomment the #define
+// note: will hurt performace a bit because the byte order needs to be swapped every time
+
+#ifndef NET_REVERSE_BYTE_ORDER
+//#define NET_REVERSE_BYTE_ORDER
+#endif
+
+// for internal use
+void _net_reverse_buffer(char* buffer, int size) {
+  char tmp[size];
+  // make sure the counter is signed so it goes to -1 upon completion (less than 0)
+  signed int ctr = size-1;
+  int ctr2 = 0;
+  // count down from size-1 to 0
+  while (ctr >= 0) {
+    tmp[ctr2] = buffer[ctr];
+    ctr--;
+    ctr2++;
+  }
+  // copy temp back to original buffer
+  memcpy(buffer,tmp,size);
+}
+
+// net_read calls
+
 uint8_t net_read_uint8(int socket_fp) {
   char buf[1];
   recv(socket_fp,buf,1,0);
@@ -157,4 +182,75 @@ uint32_t net_read_longbinary(int socket_fp, char** input_buffer) {
   recv(socket_fp,buffer,data_size,0);
   *input_buffer = buffer;
   return data_size;
+}
+
+// net_write calls
+
+void net_write_uint8(int socket_fp, uint8_t value) {
+  send(socket_fp,(char*)&value,1,0);
+}
+
+void net_write_int8(int socket_fp, int8_t value) {
+  send(socket_fp,(char*)&value,1,0);
+}
+
+void net_write_uint16(int socket_fp, uint16_t value) {
+  // begin the big endian shenanigains
+  #ifdef NET_REVERSE_BYTE_ORDER
+  _net_reverse_buffer((char*)&value,2);
+  #endif
+  send(socket_fp,(char*)&value,2,0);
+}
+
+void net_write_int16(int socket_fp, int16_t value) {
+  #ifdef NET_REVERSE_BYTE_ORDER
+  _net_reverse_buffer((char*)&value,2);
+  #endif
+  send(socket_fp,(char*)&value,2,0);
+}
+
+void net_write_uint32(int socket_fp, uint32_t value) {
+  #ifdef NET_REVERSE_BYTE_ORDER
+  _net_reverse_buffer((char*)&value,4);
+  #endif
+  send(socket_fp,(char*)&value,4,0);
+}
+
+void net_write_int32(int socket_fp, int32_t value) {
+  #ifdef NET_REVERSE_BYTE_ORDER
+  _net_reverse_buffer((char*)&value,4);
+  #endif
+  send(socket_fp,(char*)&value,4,0);
+}
+
+void net_write_uint64(int socket_fp, uint64_t value) {
+  #ifdef NET_REVERSE_BYTE_ORDER
+  _net_reverse_buffer((char*)&value,8);
+  #endif
+  send(socket_fp,(char*)&value,8,0);
+}
+
+void net_write_int64(int socket_fp, int64_t value) {
+  #ifdef NET_REVERSE_BYTE_ORDER
+  _net_reverse_buffer((char*)&value,8);
+  #endif
+  send(socket_fp,(char*)&value,8,0);
+}
+
+void net_write_float(int socket_fp, float value) {
+  send(socket_fp,(char*)&value,4,0);
+}
+
+void net_write_double(int socket_fp, double value) {
+  send(socket_fp,(char*)&value,8,0);
+}
+
+void net_write_binary(int socket_fp, char* value, uint16_t length) {
+  net_write_uint16(socket_fp,length);
+  send(socket_fp,value,length,0);
+}
+
+void net_write_longbinary(int socket_fp, char* value, uint32_t length) {
+  net_write_uint32(socket_fp,length);
+  send(socket_fp,value,length,0);
 }
